@@ -1,0 +1,8 @@
+name = "goseong-ai-music-festival"
+compatibility_date = "2026-09-30"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "goseong_music_db"
+database_id = "YOUR_D1_DATABASE_ID"
