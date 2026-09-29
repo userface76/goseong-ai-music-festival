@@ -1,7 +1,12 @@
-"d1_databases": [
-  {
-    "binding": "DB",
-    "database_name": "goseong_music_db",
-    "database_id": "실제 Cloudflare D1 ID"
-  }
-]
+{
+  "name": "goseong-ai-music-festival",
+  "compatibility_date": "2026-09-30",
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "goseong_music_db",
+      "database_id": "여기에_실제_D1_DATABASE_ID"
+    }
+  ]
+}
