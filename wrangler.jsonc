@@ -1,0 +1,7 @@
+"d1_databases": [
+  {
+    "binding": "DB",
+    "database_name": "goseong_music_db",
+    "database_id": "실제 Cloudflare D1 ID"
+  }
+]
