@@ -1,7 +1,12 @@
 {
   "name": "goseong-ai-music-festival",
+  "main": "src/index.js",
   "compatibility_date": "2026-09-30",
-  "pages_build_output_dir": ".",
+
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
 
   "d1_databases": [
     {
