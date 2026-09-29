@@ -21,28 +21,22 @@ Cloudflare Pages + Pages Functions + D1 기반으로 구성된 행사 참가 설
 
 ## 폴더 구조
 
-```text
 goseong-ai-music-festival/
-├─ index.html
-├─ admin.html
-├─ README.md
-├─ wrangler.toml.example
-├─ assets/
-│  ├─ style.css
-│  ├─ app.js
-│  └─ admin.js
-├─ functions/
-│  └─ api/
-│     ├─ submit.js
-│     └─ admin/
-│        ├─ submissions.js
-│        ├─ status.js
-│        └─ export.js
-└─ sql/
-   └─ schema.sql
-```
-
----
+├─ public/
+│  ├─ index.html
+│  ├─ admin.html
+│  └─ assets/
+│     ├─ style.css
+│     ├─ app.js
+│     └─ admin.js
+│
+├─ src/
+│  └─ index.js
+│
+├─ sql/
+│  └─ schema.sql
+│
+└─ wrangler.jsonc
 
 ## 1. GitHub 업로드
 
