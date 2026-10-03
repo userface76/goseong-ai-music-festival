@@ -10,7 +10,20 @@
 <body>
   <main class="page">
     <section class="hero">
-      <div class="badge" data-i18n="festivalName">제1회 고성 AI 뮤직 페스티벌</div>
+      <div class="hero-topbar">
+        <div class="badge" data-i18n="festivalName">제1회 고성 AI 뮤직 페스티벌</div>
+        <div class="language-switcher">
+          <button type="button" id="languageMenuBtn" class="lang-top-btn">🌐 <span id="languageMenuLabel">한국어</span> ▾</button>
+          <div id="languageMenu" class="lang-menu" hidden>
+            <button type="button" data-lang="ko">🇰🇷 한국어</button>
+            <button type="button" data-lang="en">🇺🇸 English</button>
+            <button type="button" data-lang="zh">🇨🇳 中文</button>
+            <button type="button" data-lang="ja">🇯🇵 日本語</button>
+            <button type="button" data-lang="vi">🇻🇳 Tiếng Việt</button>
+            <button type="button" data-lang="id">🇮🇩 Bahasa Indonesia</button>
+          </div>
+        </div>
+      </div>
       <h1 data-i18n-html="heroTitle">남이 만든 노래만 듣는 시대에서<br><em>내가 직접 만드는 음악의 시대로.</em></h1>
       <p data-i18n="heroDesc">당신의 이야기, 추억, 사랑, 가족, 직장, 매장, 고성의 바다를 음악으로 만들어보세요.</p>
       <div class="hero-pills">
@@ -22,22 +35,8 @@
     </section>
 
     <section class="panel">
-      <section id="languageGate">
-        <h2 data-i18n="chooseLanguage">언어를 선택해주세요</h2>
-        <p class="note">Choose your language</p>
-        <div class="grid-options language-grid">
-          <button type="button" class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
-          <button type="button" class="lang-btn" data-lang="en">🇺🇸 English</button>
-          <button type="button" class="lang-btn" data-lang="zh">🇨🇳 中文</button>
-          <button type="button" class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
-          <button type="button" class="lang-btn" data-lang="vi">🇻🇳 Tiếng Việt</button>
-          <button type="button" class="lang-btn" data-lang="id">🇮🇩 Bahasa Indonesia</button>
-        </div>
-      </section>
-
-      <div id="surveyWrap" hidden>
-        <div class="toolbar" style="justify-content:space-between;align-items:center">
-          <button type="button" class="btn secondary" id="changeLanguageBtn" data-i18n="changeLanguage">언어 변경</button>
+      <div id="surveyWrap">
+        <div class="toolbar" style="justify-content:flex-end;align-items:center">
           <div id="currentLanguage" class="badge dark"></div>
         </div>
 
