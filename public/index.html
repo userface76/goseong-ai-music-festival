@@ -4,211 +4,219 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>제1회 고성 AI 뮤직 페스티벌 | 나만의 음악 만들기</title>
-  <meta name="description" content="당신의 이야기가 음악이 됩니다. QR 설문 참여 후 나만의 AI 음악을 만들어보세요.">
+  <meta name="description" content="Choose your language and create your own AI music from your story.">
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
   <main class="page">
     <section class="hero">
-      <div class="badge">제1회 고성 AI 뮤직 페스티벌</div>
-      <h1>남이 만든 노래만 듣는 시대에서<br><em>내가 직접 만드는 음악의 시대로.</em></h1>
-      <p>
-        당신의 이야기, 추억, 사랑, 가족, 직장, 매장, 고성의 바다를 음악으로 만들어보세요.
-        완성된 음악은 내 삶의 공간에서 듣고, 공유하고, 희망 시 음원 유통 및 수익화 프로그램으로 연결할 수 있습니다.
-      </p>
+      <div class="badge" data-i18n="festivalName">제1회 고성 AI 뮤직 페스티벌</div>
+      <h1 data-i18n-html="heroTitle">남이 만든 노래만 듣는 시대에서<br><em>내가 직접 만드는 음악의 시대로.</em></h1>
+      <p data-i18n="heroDesc">당신의 이야기, 추억, 사랑, 가족, 직장, 매장, 고성의 바다를 음악으로 만들어보세요.</p>
       <div class="hero-pills">
-        <span>AI 작사</span><span>AI 음악 제작</span><span>공유</span><span>에이미온 인기 이벤트</span>
+        <span data-i18n="pillLyrics">AI 작사</span>
+        <span data-i18n="pillMusic">AI 음악 제작</span>
+        <span data-i18n="pillShare">공유</span>
+        <span data-i18n="pillEvent">에이미온 인기 이벤트</span>
       </div>
     </section>
 
     <section class="panel">
-      <div class="progress"><span id="progressBar"></span></div>
-
-      <form id="surveyForm">
-        <section class="step active" data-step="1">
-          <h2>1. 참가자 정보</h2>
-          <label>이름 또는 닉네임
-            <input name="name" required maxlength="80" placeholder="예: 김고성 / 바다여행자">
-          </label>
-
-          <label>휴대전화
-            <input name="phone" type="tel" required maxlength="30" placeholder="010-0000-0000">
-          </label>
-
-          <label>이메일 <small>(선택)</small>
-            <input name="email" type="email" maxlength="120" placeholder="name@example.com">
-          </label>
-
-          <label>연령대
-            <select name="age_group" required>
-              <option value="">선택</option>
-              <option>10대 이하</option>
-              <option>10대</option>
-              <option>20대</option>
-              <option>30대</option>
-              <option>40대</option>
-              <option>50대</option>
-              <option>60대</option>
-              <option>70대 이상</option>
-            </select>
-          </label>
-
-          <label>거주지역
-            <input name="region" required maxlength="80" placeholder="예: 강원 고성 / 서울 / 경기">
-          </label>
-        </section>
-
-        <section class="step" data-step="2">
-          <h2>2. 어떤 이야기를 노래로 만들까요?</h2>
-
-          <div class="grid-options">
-            <label><input type="radio" name="theme" value="고성·바다" required>고성·바다</label>
-            <label><input type="radio" name="theme" value="가족">가족</label>
-            <label><input type="radio" name="theme" value="사랑·연인">사랑·연인</label>
-            <label><input type="radio" name="theme" value="이별·그리움">이별·그리움</label>
-            <label><input type="radio" name="theme" value="친구">친구</label>
-            <label><input type="radio" name="theme" value="여행·추억">여행·추억</label>
-            <label><input type="radio" name="theme" value="꿈·희망">꿈·희망</label>
-            <label><input type="radio" name="theme" value="감사·축하">감사·축하</label>
-            <label><input type="radio" name="theme" value="직장·매장·브랜드">직장·매장·브랜드</label>
-            <label><input type="radio" name="theme" value="기타">기타</label>
-          </div>
-
-          <label>노래에 담고 싶은 이야기
-            <textarea name="story" required rows="7" maxlength="5000"
-              placeholder="기억에 남는 순간, 누구를 위한 노래인지, 꼭 전하고 싶은 말을 자유롭게 적어주세요."></textarea>
-          </label>
-
-          <label>꼭 들어갔으면 하는 단어 <small>(쉼표로 구분)</small>
-            <input name="keywords" maxlength="500" placeholder="예: 고성, 바다, 엄마, 고마워">
-          </label>
-
-          <label>원하는 노래 제목 <small>(선택, 비워두면 AI 추천)</small>
-            <input name="desired_title" maxlength="150" placeholder="예: 다시 찾은 고성의 바다">
-          </label>
-        </section>
-
-        <section class="step" data-step="3">
-          <h2>3. 음악 스타일</h2>
-
-          <label>장르
-            <select name="genre" required>
-              <option value="">선택</option>
-              <option>K-POP</option>
-              <option>발라드</option>
-              <option>트로트</option>
-              <option>팝</option>
-              <option>록</option>
-              <option>포크</option>
-              <option>재즈</option>
-              <option>R&B</option>
-              <option>EDM</option>
-              <option>어쿠스틱</option>
-              <option>AI 추천</option>
-            </select>
-          </label>
-
-          <label>분위기
-            <select name="mood" required>
-              <option value="">선택</option>
-              <option>행복한</option>
-              <option>따뜻한</option>
-              <option>감동적인</option>
-              <option>잔잔한</option>
-              <option>열정적인</option>
-              <option>희망찬</option>
-              <option>슬픈</option>
-              <option>시원한</option>
-              <option>AI 추천</option>
-            </select>
-          </label>
-
-          <label>보컬
-            <select name="vocal_type" required>
-              <option value="">선택</option>
-              <option>남성</option>
-              <option>여성</option>
-              <option>혼성</option>
-              <option>연주곡</option>
-              <option>AI 추천</option>
-            </select>
-          </label>
-
-          <label>BPM / 빠르기
-            <select name="bpm">
-              <option>AI 추천</option>
-              <option>느리게 (75~90)</option>
-              <option>보통 (91~110)</option>
-              <option>빠르게 (111~125)</option>
-            </select>
-          </label>
-
-          <label>원하는 악기 <small>(선택)</small>
-            <input name="instruments" maxlength="300" placeholder="예: 피아노, 통기타">
-          </label>
-        </section>
-
-        <section class="step" data-step="4">
-          <h2>4. 에이미온 인기 이벤트</h2>
-
-          <div class="event-box">
-            <strong>10월 16일까지</strong> 에이미온에 올라간 본인 음원을 직접 홍보해보세요.
-            좋아요와 조회수 등 운영기준에 따라 인기 참가자를 선정해 고성군 특산품을 드립니다.
-          </div>
-
-          <div class="prize-list">
-            <span>1등: 오징어 10마리 또는 최고급 명태 세트</span>
-            <span>2등: 오징어 5마리</span>
-            <span>3등: 쥐포 10마리</span>
-            <span>4등: 황태포(명태포)</span>
-            <span>5등: 코다리</span>
-          </div>
-
-          <label class="checkline">
-            <input type="checkbox" name="event_participation">
-            에이미온 인기 이벤트 참여를 희망합니다.
-          </label>
-
-          <label>에이미온 표시 닉네임 <small>(선택)</small>
-            <input name="aimion_nickname" maxlength="80" placeholder="예: 바다여행자">
-          </label>
-
-          <p class="note">※ 발표 및 공지는 에이미온 홈페이지 및 개별 알림으로 진행하는 방식으로 운영할 수 있습니다.</p>
-        </section>
-
-        <section class="step" data-step="5">
-          <h2>5. 동의 및 접수</h2>
-
-          <div class="consent-box">
-            <label class="checkline">
-              <input type="checkbox" name="privacy_consent" required>
-              <b>[필수]</b> 참가 신청 및 음원 제작을 위한 개인정보 수집·이용에 동의합니다.
-            </label>
-
-            <label class="checkline">
-              <input type="checkbox" name="music_use_consent">
-              <b>[선택]</b> 완성 음원의 행사 홍보, 고성군·에이미온 공식 채널 공개 및 활용에 동의합니다.
-            </label>
-          </div>
-
-          <p class="note">
-            ※ 선택 동의를 하지 않아도 음악 제작 신청은 가능합니다.
-            실제 행사 오픈 전 개인정보 수집 주체, 보유기간, 문의처 문구를 반드시 확정해 주세요.
-          </p>
-
-          <label>추가 요청사항 <small>(선택)</small>
-            <textarea name="notes" rows="4" maxlength="1000" placeholder="운영진에게 전달할 내용"></textarea>
-          </label>
-        </section>
-
-        <div class="actions">
-          <button type="button" class="btn secondary" id="prevBtn" hidden>이전</button>
-          <button type="button" class="btn" id="nextBtn">다음</button>
-          <button type="submit" class="btn" id="submitBtn" hidden>AI 음악 제작 신청하기</button>
+      <section id="languageGate">
+        <h2 data-i18n="chooseLanguage">언어를 선택해주세요</h2>
+        <p class="note">Choose your language</p>
+        <div class="grid-options language-grid">
+          <button type="button" class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+          <button type="button" class="lang-btn" data-lang="en">🇺🇸 English</button>
+          <button type="button" class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+          <button type="button" class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+          <button type="button" class="lang-btn" data-lang="vi">🇻🇳 Tiếng Việt</button>
+          <button type="button" class="lang-btn" data-lang="id">🇮🇩 Bahasa Indonesia</button>
         </div>
-      </form>
+      </section>
 
-      <div id="result" class="result" hidden></div>
+      <div id="surveyWrap" hidden>
+        <div class="toolbar" style="justify-content:space-between;align-items:center">
+          <button type="button" class="btn secondary" id="changeLanguageBtn" data-i18n="changeLanguage">언어 변경</button>
+          <div id="currentLanguage" class="badge dark"></div>
+        </div>
+
+        <div class="progress"><span id="progressBar"></span></div>
+
+        <form id="surveyForm">
+          <input type="hidden" name="language" id="languageInput" value="ko">
+
+          <section class="step active" data-step="1">
+            <h2 data-i18n="step1Title">1. 참가자 정보</h2>
+
+            <label><span data-i18n="nameLabel">이름 또는 닉네임</span>
+              <input name="name" required maxlength="80" data-i18n-placeholder="namePh" placeholder="예: 김고성 / 바다여행자">
+            </label>
+
+            <label><span data-i18n="emailLabel">이메일</span>
+              <input name="email" type="email" required maxlength="120" placeholder="name@example.com">
+            </label>
+
+            <label><span data-i18n="countryLabel">국가 / 지역</span>
+              <input name="country" required maxlength="80" data-i18n-placeholder="countryPh" placeholder="예: Korea / Vietnam / Japan">
+            </label>
+
+            <label><span data-i18n="regionLabel">도시 / 거주지역</span>
+              <input name="region" maxlength="80" data-i18n-placeholder="regionPh" placeholder="예: 고성 / 서울 / Hanoi">
+            </label>
+
+            <label><span data-i18n="phoneLabel">휴대전화</span> <small data-i18n="optional">(선택)</small>
+              <input name="phone" type="tel" maxlength="30" placeholder="+82 10-0000-0000">
+            </label>
+
+            <label><span data-i18n="ageLabel">연령대</span>
+              <select name="age_group" required>
+                <option value="" data-i18n="select">선택</option>
+                <option value="under10" data-i18n="ageUnder10">10대 이하</option>
+                <option value="10s" data-i18n="age10s">10대</option>
+                <option value="20s" data-i18n="age20s">20대</option>
+                <option value="30s" data-i18n="age30s">30대</option>
+                <option value="40s" data-i18n="age40s">40대</option>
+                <option value="50s" data-i18n="age50s">50대</option>
+                <option value="60s" data-i18n="age60s">60대</option>
+                <option value="70plus" data-i18n="age70plus">70대 이상</option>
+              </select>
+            </label>
+          </section>
+
+          <section class="step" data-step="2">
+            <h2 data-i18n="step2Title">2. 어떤 이야기를 노래로 만들까요?</h2>
+
+            <div class="grid-options">
+              <label><input type="radio" name="theme" value="goseong-sea" required><span data-i18n="themeSea">고성·바다</span></label>
+              <label><input type="radio" name="theme" value="family"><span data-i18n="themeFamily">가족</span></label>
+              <label><input type="radio" name="theme" value="love"><span data-i18n="themeLove">사랑·연인</span></label>
+              <label><input type="radio" name="theme" value="longing"><span data-i18n="themeLonging">이별·그리움</span></label>
+              <label><input type="radio" name="theme" value="friends"><span data-i18n="themeFriends">친구</span></label>
+              <label><input type="radio" name="theme" value="travel"><span data-i18n="themeTravel">여행·추억</span></label>
+              <label><input type="radio" name="theme" value="dream"><span data-i18n="themeDream">꿈·희망</span></label>
+              <label><input type="radio" name="theme" value="thanks"><span data-i18n="themeThanks">감사·축하</span></label>
+              <label><input type="radio" name="theme" value="business"><span data-i18n="themeBusiness">직장·매장·브랜드</span></label>
+              <label><input type="radio" name="theme" value="other"><span data-i18n="themeOther">기타</span></label>
+            </div>
+
+            <label><span data-i18n="titleLabel">원하는 노래 제목</span> <small data-i18n="titleHint">(비워두면 AI 추천)</small>
+              <input name="desired_title" maxlength="150" data-i18n-placeholder="titlePh" placeholder="예: 다시 찾은 고성의 바다">
+            </label>
+
+            <label><span data-i18n="storyLabel">노래에 담고 싶은 이야기</span>
+              <textarea name="story" required rows="7" maxlength="5000" data-i18n-placeholder="storyPh" placeholder="기억에 남는 순간, 누구를 위한 노래인지, 꼭 전하고 싶은 말을 자유롭게 적어주세요."></textarea>
+            </label>
+
+            <label><span data-i18n="keywordsLabel">꼭 들어갔으면 하는 단어</span> <small data-i18n="commaHint">(쉼표로 구분)</small>
+              <input name="keywords" maxlength="500" data-i18n-placeholder="keywordsPh" placeholder="예: 고성, 바다, 엄마, 고마워">
+            </label>
+
+            <label><span data-i18n="lyricsRequestLabel">노래에 꼭 넣고 싶은 가사·문장</span> <small data-i18n="optional">(선택)</small>
+              <textarea name="lyrics_request" rows="4" maxlength="1500" data-i18n-placeholder="lyricsRequestPh" placeholder="예: 엄마, 늘 고마웠어요 / 다시 고성 바다에서 만나자"></textarea>
+            </label>
+          </section>
+
+          <section class="step" data-step="3">
+            <h2 data-i18n="step3Title">3. 음악 스타일</h2>
+
+            <label><span data-i18n="genreLabel">장르</span>
+              <select name="genre" required>
+                <option value="" data-i18n="select">선택</option>
+                <option>K-POP</option><option>Ballad</option><option>Trot</option><option>Pop</option>
+                <option>Rock</option><option>Folk</option><option>Jazz</option><option>R&B</option>
+                <option>EDM</option><option>Acoustic</option><option value="AI Recommend" data-i18n="aiRecommend">AI 추천</option>
+              </select>
+            </label>
+
+            <label><span data-i18n="moodLabel">분위기</span>
+              <select name="mood" required>
+                <option value="" data-i18n="select">선택</option>
+                <option value="happy" data-i18n="moodHappy">행복한</option>
+                <option value="warm" data-i18n="moodWarm">따뜻한</option>
+                <option value="emotional" data-i18n="moodEmotional">감동적인</option>
+                <option value="calm" data-i18n="moodCalm">잔잔한</option>
+                <option value="passionate" data-i18n="moodPassionate">열정적인</option>
+                <option value="hopeful" data-i18n="moodHopeful">희망찬</option>
+                <option value="sad" data-i18n="moodSad">슬픈</option>
+                <option value="refreshing" data-i18n="moodRefreshing">시원한</option>
+                <option value="AI Recommend" data-i18n="aiRecommend">AI 추천</option>
+              </select>
+            </label>
+
+            <label><span data-i18n="vocalLabel">보컬</span>
+              <select name="vocal_type" required>
+                <option value="" data-i18n="select">선택</option>
+                <option value="male" data-i18n="male">남성</option>
+                <option value="female" data-i18n="female">여성</option>
+                <option value="mixed" data-i18n="mixed">혼성</option>
+                <option value="instrumental" data-i18n="instrumental">연주곡</option>
+                <option value="AI Recommend" data-i18n="aiRecommend">AI 추천</option>
+              </select>
+            </label>
+
+            <label><span data-i18n="bpmLabel">BPM / 빠르기</span>
+              <select name="bpm">
+                <option value="AI Recommend" data-i18n="aiRecommend">AI 추천</option>
+                <option value="slow" data-i18n="slow">느리게 (75~90)</option>
+                <option value="normal" data-i18n="normal">보통 (91~110)</option>
+                <option value="fast" data-i18n="fast">빠르게 (111~125)</option>
+              </select>
+            </label>
+
+            <label><span data-i18n="instrumentLabel">원하는 악기</span> <small data-i18n="optional">(선택)</small>
+              <input name="instruments" maxlength="300" data-i18n-placeholder="instrumentPh" placeholder="예: 피아노, 통기타">
+            </label>
+          </section>
+
+          <section class="step" data-step="4">
+            <h2 data-i18n="step4Title">4. 에이미온 인기 이벤트</h2>
+            <div class="event-box" data-i18n-html="eventDesc">
+              <strong>10월 16일까지</strong> 에이미온에 올라간 본인 음원을 직접 홍보해보세요.
+              좋아요와 조회수 등 운영기준에 따라 인기 참가자를 선정해 고성군 특산품을 드립니다.
+            </div>
+
+            <label class="checkline">
+              <input type="checkbox" name="event_participation">
+              <span data-i18n="eventOptIn">에이미온 인기 이벤트 참여를 희망합니다.</span>
+            </label>
+
+            <label><span data-i18n="aimionNickLabel">에이미온 표시 닉네임</span> <small data-i18n="optional">(선택)</small>
+              <input name="aimion_nickname" maxlength="80">
+            </label>
+          </section>
+
+          <section class="step" data-step="5">
+            <h2 data-i18n="step5Title">5. 동의 및 접수</h2>
+
+            <div class="consent-box">
+              <label class="checkline">
+                <input type="checkbox" name="privacy_consent" required>
+                <span data-i18n="privacyConsent"><b>[필수]</b> 참가 신청 및 음원 제작을 위한 개인정보 수집·이용에 동의합니다.</span>
+              </label>
+
+              <label class="checkline">
+                <input type="checkbox" name="music_use_consent">
+                <span data-i18n="musicConsent"><b>[선택]</b> 완성 음원의 행사 홍보, 고성군·에이미온 공식 채널 공개 및 활용에 동의합니다.</span>
+              </label>
+            </div>
+
+            <p class="note" data-i18n="consentNote">선택 동의를 하지 않아도 음악 제작 신청은 가능합니다.</p>
+
+            <label><span data-i18n="notesLabel">추가 요청사항</span> <small data-i18n="optional">(선택)</small>
+              <textarea name="notes" rows="4" maxlength="1000"></textarea>
+            </label>
+          </section>
+
+          <div class="actions">
+            <button type="button" class="btn secondary" id="prevBtn" hidden data-i18n="prev">이전</button>
+            <button type="button" class="btn" id="nextBtn" data-i18n="next">다음</button>
+            <button type="submit" class="btn" id="submitBtn" hidden data-i18n="submit">AI 음악 제작 신청하기</button>
+          </div>
+        </form>
+
+        <div id="result" class="result" hidden></div>
+      </div>
     </section>
   </main>
 
