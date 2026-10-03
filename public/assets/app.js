@@ -1,83 +1,74 @@
-const form = document.getElementById('surveyForm');
-const steps = [...document.querySelectorAll('.step')];
-const progressBar = document.getElementById('progressBar');
-const nextBtn = document.getElementById('nextBtn');
-const prevBtn = document.getElementById('prevBtn');
-const submitBtn = document.getElementById('submitBtn');
-const result = document.getElementById('result');
-let current = 0;
+const translations = {
+ko:{festivalName:"제1회 고성 AI 뮤직 페스티벌",heroTitle:"남이 만든 노래만 듣는 시대에서<br><em>내가 직접 만드는 음악의 시대로.</em>",heroDesc:"당신의 이야기, 추억, 사랑, 가족, 직장, 매장, 고성의 바다를 음악으로 만들어보세요.",pillLyrics:"AI 작사",pillMusic:"AI 음악 제작",pillShare:"공유",pillEvent:"에이미온 인기 이벤트",chooseLanguage:"언어를 선택해주세요",changeLanguage:"언어 변경",step1Title:"1. 참가자 정보",nameLabel:"이름 또는 닉네임",namePh:"예: 김고성 / 바다여행자",emailLabel:"이메일",countryLabel:"국가 / 지역",countryPh:"예: Korea / Vietnam / Japan",regionLabel:"도시 / 거주지역",regionPh:"예: 고성 / 서울 / Hanoi",phoneLabel:"휴대전화",optional:"(선택)",ageLabel:"연령대",select:"선택",ageUnder10:"10대 이하",age10s:"10대",age20s:"20대",age30s:"30대",age40s:"40대",age50s:"50대",age60s:"60대",age70plus:"70대 이상",step2Title:"2. 어떤 이야기를 노래로 만들까요?",themeSea:"고성·바다",themeFamily:"가족",themeLove:"사랑·연인",themeLonging:"이별·그리움",themeFriends:"친구",themeTravel:"여행·추억",themeDream:"꿈·희망",themeThanks:"감사·축하",themeBusiness:"직장·매장·브랜드",themeOther:"기타",titleLabel:"원하는 노래 제목",titleHint:"(비워두면 AI 추천)",titlePh:"예: 다시 찾은 고성의 바다",storyLabel:"노래에 담고 싶은 이야기",storyPh:"기억에 남는 순간, 누구를 위한 노래인지, 꼭 전하고 싶은 말을 자유롭게 적어주세요.",keywordsLabel:"꼭 들어갔으면 하는 단어",commaHint:"(쉼표로 구분)",keywordsPh:"예: 고성, 바다, 엄마, 고마워",lyricsRequestLabel:"노래에 꼭 넣고 싶은 가사·문장",lyricsRequestPh:"예: 엄마, 늘 고마웠어요 / 다시 고성 바다에서 만나자",step3Title:"3. 음악 스타일",genreLabel:"장르",aiRecommend:"AI 추천",moodLabel:"분위기",moodHappy:"행복한",moodWarm:"따뜻한",moodEmotional:"감동적인",moodCalm:"잔잔한",moodPassionate:"열정적인",moodHopeful:"희망찬",moodSad:"슬픈",moodRefreshing:"시원한",vocalLabel:"보컬",male:"남성",female:"여성",mixed:"혼성",instrumental:"연주곡",bpmLabel:"BPM / 빠르기",slow:"느리게 (75~90)",normal:"보통 (91~110)",fast:"빠르게 (111~125)",instrumentLabel:"원하는 악기",instrumentPh:"예: 피아노, 통기타",step4Title:"4. 에이미온 인기 이벤트",eventDesc:"<strong>10월 16일까지</strong> 에이미온에 올라간 본인 음원을 직접 홍보해보세요. 좋아요와 조회수 등 운영기준에 따라 인기 참가자를 선정해 고성군 특산품을 드립니다.",eventOptIn:"에이미온 인기 이벤트 참여를 희망합니다.",aimionNickLabel:"에이미온 표시 닉네임",step5Title:"5. 동의 및 접수",privacyConsent:"[필수] 참가 신청 및 음원 제작을 위한 개인정보 수집·이용에 동의합니다.",musicConsent:"[선택] 완성 음원의 행사 홍보, 고성군·에이미온 공식 채널 공개 및 활용에 동의합니다.",consentNote:"선택 동의를 하지 않아도 음악 제작 신청은 가능합니다.",notesLabel:"추가 요청사항",prev:"이전",next:"다음",submit:"AI 음악 제작 신청하기",submitting:"접수 중...",doneTitle:"🎉 신청이 완료되었습니다.",receipt:"접수번호",doneMsg:"운영진이 접수 내용을 확인한 뒤 AI 가사·음악 제작을 진행합니다.",keepReceipt:"접수번호는 캡처해서 보관해 주세요."},
+en:{festivalName:"1st Goseong AI Music Festival",heroTitle:"From listening to someone else's songs<br><em>to creating music of your own.</em>",heroDesc:"Turn your memories, love, family, work, shop, and Goseong sea stories into music.",pillLyrics:"AI Lyrics",pillMusic:"AI Music",pillShare:"Share",pillEvent:"AIMION Popularity Event",chooseLanguage:"Choose your language",changeLanguage:"Change language",step1Title:"1. Participant Information",nameLabel:"Name or nickname",namePh:"e.g. John / SeaTraveler",emailLabel:"Email",countryLabel:"Country / Region",countryPh:"e.g. Korea / Vietnam / Japan",regionLabel:"City / Area",regionPh:"e.g. Seoul / Hanoi / Tokyo",phoneLabel:"Mobile phone",optional:"(optional)",ageLabel:"Age group",select:"Select",ageUnder10:"Under 10",age10s:"Teens",age20s:"20s",age30s:"30s",age40s:"40s",age50s:"50s",age60s:"60s",age70plus:"70+",step2Title:"2. What story would you like to turn into a song?",themeSea:"Goseong & Sea",themeFamily:"Family",themeLove:"Love",themeLonging:"Breakup & Longing",themeFriends:"Friends",themeTravel:"Travel & Memories",themeDream:"Dreams & Hope",themeThanks:"Thanks & Celebration",themeBusiness:"Work / Shop / Brand",themeOther:"Other",titleLabel:"Desired song title",titleHint:"(leave blank for AI suggestion)",titlePh:"e.g. Back to the Sea of Goseong",storyLabel:"Story you want in the song",storyPh:"Tell us the memorable moment, who the song is for, and what you want to say.",keywordsLabel:"Words you want included",commaHint:"(comma separated)",keywordsPh:"e.g. sea, mother, thank you",lyricsRequestLabel:"A lyric or sentence you definitely want included",lyricsRequestPh:"e.g. Mom, thank you always / Let's meet again by the sea",step3Title:"3. Music Style",genreLabel:"Genre",aiRecommend:"AI Recommend",moodLabel:"Mood",moodHappy:"Happy",moodWarm:"Warm",moodEmotional:"Emotional",moodCalm:"Calm",moodPassionate:"Passionate",moodHopeful:"Hopeful",moodSad:"Sad",moodRefreshing:"Refreshing",vocalLabel:"Vocal",male:"Male",female:"Female",mixed:"Mixed",instrumental:"Instrumental",bpmLabel:"BPM / Tempo",slow:"Slow (75-90)",normal:"Normal (91-110)",fast:"Fast (111-125)",instrumentLabel:"Preferred instruments",instrumentPh:"e.g. piano, acoustic guitar",step4Title:"4. AIMION Popularity Event",eventDesc:"Promote your own track uploaded to AIMION by <strong>October 16</strong>. Popular entries will receive Goseong local specialty gifts based on the event criteria.",eventOptIn:"I want to participate in the AIMION popularity event.",aimionNickLabel:"AIMION display nickname",step5Title:"5. Consent & Submit",privacyConsent:"[Required] I agree to the collection and use of personal information for participation and music production.",musicConsent:"[Optional] I agree to promotional/public use of the completed music on official festival, Goseong, and AIMION channels.",consentNote:"You may participate in music production even if you do not agree to the optional use.",notesLabel:"Additional requests",prev:"Previous",next:"Next",submit:"Submit AI Music Request",submitting:"Submitting...",doneTitle:"🎉 Your application is complete.",receipt:"Receipt No.",doneMsg:"The staff will review your submission and proceed with AI lyrics and music production.",keepReceipt:"Please save or screenshot your receipt number."},
+zh:{festivalName:"第一届高城 AI 音乐节",heroTitle:"从只听别人创作的歌曲<br><em>到亲自创作属于自己的音乐。</em>",heroDesc:"把你的故事、回忆、爱情、家人、工作、店铺以及高城大海变成音乐。",pillLyrics:"AI 作词",pillMusic:"AI 音乐制作",pillShare:"分享",pillEvent:"AIMION 人气活动",chooseLanguage:"请选择语言",changeLanguage:"切换语言",step1Title:"1. 参加者信息",nameLabel:"姓名或昵称",namePh:"例如：海边旅行者",emailLabel:"电子邮箱",countryLabel:"国家 / 地区",countryPh:"例如：韩国 / 中国 / 日本",regionLabel:"城市 / 居住地区",regionPh:"例如：北京 / 上海 / 首尔",phoneLabel:"手机号码",optional:"（选填）",ageLabel:"年龄段",select:"请选择",ageUnder10:"10岁以下",age10s:"10多岁",age20s:"20多岁",age30s:"30多岁",age40s:"40多岁",age50s:"50多岁",age60s:"60多岁",age70plus:"70岁以上",step2Title:"2. 想把什么故事做成歌曲？",themeSea:"高城·大海",themeFamily:"家人",themeLove:"爱情·恋人",themeLonging:"离别·思念",themeFriends:"朋友",themeTravel:"旅行·回忆",themeDream:"梦想·希望",themeThanks:"感谢·祝贺",themeBusiness:"工作·店铺·品牌",themeOther:"其他",titleLabel:"想要的歌曲标题",titleHint:"（留空则由AI推荐）",titlePh:"例如：再次遇见高城大海",storyLabel:"想写进歌曲的故事",storyPh:"请写下难忘的时刻、这首歌想送给谁、以及你最想表达的话。",keywordsLabel:"希望出现的关键词",commaHint:"（用逗号分隔）",keywordsPh:"例如：大海，妈妈，谢谢",lyricsRequestLabel:"一定想写进歌词的一句话",lyricsRequestPh:"例如：妈妈，一直以来谢谢你",step3Title:"3. 音乐风格",genreLabel:"曲风",aiRecommend:"AI 推荐",moodLabel:"氛围",moodHappy:"快乐",moodWarm:"温暖",moodEmotional:"感动",moodCalm:"平静",moodPassionate:"热情",moodHopeful:"充满希望",moodSad:"悲伤",moodRefreshing:"清爽",vocalLabel:"人声",male:"男声",female:"女声",mixed:"男女合唱",instrumental:"纯音乐",bpmLabel:"BPM / 速度",slow:"慢 (75-90)",normal:"中等 (91-110)",fast:"快 (111-125)",instrumentLabel:"希望使用的乐器",instrumentPh:"例如：钢琴，原声吉他",step4Title:"4. AIMION 人气活动",eventDesc:"请在<strong>10月16日之前</strong>宣传你上传到 AIMION 的原创音乐。将根据活动规则选出人气作品并赠送高城特色礼品。",eventOptIn:"我希望参加 AIMION 人气活动。",aimionNickLabel:"AIMION 显示昵称",step5Title:"5. 同意并提交",privacyConsent:"[必选] 我同意为参加活动和制作音乐而收集及使用个人信息。",musicConsent:"[可选] 我同意将完成的音乐用于活动、高城和 AIMION 官方渠道的宣传及公开。",consentNote:"不同意可选项目也可以参加音乐制作。",notesLabel:"其他要求",prev:"上一步",next:"下一步",submit:"提交 AI 音乐制作申请",submitting:"提交中...",doneTitle:"🎉 申请已完成。",receipt:"受理编号",doneMsg:"工作人员确认后将开始 AI 作词和音乐制作。",keepReceipt:"请保存或截图受理编号。"},
+ja:{festivalName:"第1回 高城 AI ミュージックフェスティバル",heroTitle:"誰かが作った歌を聴くだけの時代から<br><em>自分で音楽をつくる時代へ。</em>",heroDesc:"あなたの物語、思い出、家族、仕事、お店、高城の海を音楽にしてみましょう。",pillLyrics:"AI 作詞",pillMusic:"AI 音楽制作",pillShare:"シェア",pillEvent:"AIMION 人気イベント",chooseLanguage:"言語を選択してください",changeLanguage:"言語変更",step1Title:"1. 参加者情報",nameLabel:"名前またはニックネーム",namePh:"例：海の旅人",emailLabel:"メールアドレス",countryLabel:"国 / 地域",countryPh:"例：韓国 / 日本 / ベトナム",regionLabel:"都市 / 居住地域",regionPh:"例：東京 / 大阪 / ソウル",phoneLabel:"携帯電話",optional:"（任意）",ageLabel:"年代",select:"選択",ageUnder10:"10歳未満",age10s:"10代",age20s:"20代",age30s:"30代",age40s:"40代",age50s:"50代",age60s:"60代",age70plus:"70代以上",step2Title:"2. どんな物語を歌にしますか？",themeSea:"高城・海",themeFamily:"家族",themeLove:"恋愛",themeLonging:"別れ・恋しさ",themeFriends:"友人",themeTravel:"旅・思い出",themeDream:"夢・希望",themeThanks:"感謝・お祝い",themeBusiness:"仕事・店舗・ブランド",themeOther:"その他",titleLabel:"希望する曲名",titleHint:"（空欄ならAIが提案）",titlePh:"例：再び出会う高城の海",storyLabel:"歌にしたい物語",storyPh:"思い出に残る出来事、誰のための歌か、伝えたい言葉を書いてください。",keywordsLabel:"入れてほしい言葉",commaHint:"（カンマ区切り）",keywordsPh:"例：海、母、ありがとう",lyricsRequestLabel:"必ず歌詞に入れたい言葉・文章",lyricsRequestPh:"例：お母さん、いつもありがとう",step3Title:"3. 音楽スタイル",genreLabel:"ジャンル",aiRecommend:"AI おすすめ",moodLabel:"雰囲気",moodHappy:"楽しい",moodWarm:"温かい",moodEmotional:"感動的",moodCalm:"穏やか",moodPassionate:"情熱的",moodHopeful:"希望的",moodSad:"悲しい",moodRefreshing:"爽やか",vocalLabel:"ボーカル",male:"男性",female:"女性",mixed:"男女",instrumental:"インスト",bpmLabel:"BPM / テンポ",slow:"遅め (75-90)",normal:"普通 (91-110)",fast:"速め (111-125)",instrumentLabel:"希望する楽器",instrumentPh:"例：ピアノ、アコースティックギター",step4Title:"4. AIMION 人気イベント",eventDesc:"<strong>10月16日まで</strong>に AIMION に掲載されたご自身の楽曲を宣伝してください。イベント基準に基づき人気作品に高城の特産品を贈ります。",eventOptIn:"AIMION 人気イベントへの参加を希望します。",aimionNickLabel:"AIMION 表示ニックネーム",step5Title:"5. 同意・申請",privacyConsent:"[必須] 参加受付および音楽制作のための個人情報収集・利用に同意します。",musicConsent:"[任意] 完成した音楽をイベント、高城、AIMION公式チャンネルで広報・公開することに同意します。",consentNote:"任意項目に同意しなくても音楽制作に参加できます。",notesLabel:"追加リクエスト",prev:"戻る",next:"次へ",submit:"AI音楽制作を申し込む",submitting:"送信中...",doneTitle:"🎉 申請が完了しました。",receipt:"受付番号",doneMsg:"運営スタッフが内容を確認し、AI作詞・音楽制作を進めます。",keepReceipt:"受付番号を保存またはスクリーンショットしてください。"},
+vi:{festivalName:"Lễ hội Âm nhạc AI Goseong lần thứ 1",heroTitle:"Từ thời đại chỉ nghe nhạc của người khác<br><em>đến thời đại tự tạo âm nhạc của riêng mình.</em>",heroDesc:"Biến câu chuyện, ký ức, tình yêu, gia đình, công việc, cửa hàng và biển Goseong của bạn thành âm nhạc.",pillLyrics:"AI viết lời",pillMusic:"AI tạo nhạc",pillShare:"Chia sẻ",pillEvent:"Sự kiện AIMION",chooseLanguage:"Chọn ngôn ngữ",changeLanguage:"Đổi ngôn ngữ",step1Title:"1. Thông tin người tham gia",nameLabel:"Tên hoặc biệt danh",namePh:"Ví dụ: SeaTraveler",emailLabel:"Email",countryLabel:"Quốc gia / Khu vực",countryPh:"Ví dụ: Việt Nam / Korea / Japan",regionLabel:"Thành phố / Nơi ở",regionPh:"Ví dụ: Hà Nội / TP.HCM",phoneLabel:"Số điện thoại",optional:"(không bắt buộc)",ageLabel:"Độ tuổi",select:"Chọn",ageUnder10:"Dưới 10",age10s:"10-19",age20s:"20-29",age30s:"30-39",age40s:"40-49",age50s:"50-59",age60s:"60-69",age70plus:"70+",step2Title:"2. Bạn muốn biến câu chuyện nào thành bài hát?",themeSea:"Goseong & Biển",themeFamily:"Gia đình",themeLove:"Tình yêu",themeLonging:"Chia tay & Nhớ nhung",themeFriends:"Bạn bè",themeTravel:"Du lịch & Kỷ niệm",themeDream:"Ước mơ & Hy vọng",themeThanks:"Cảm ơn & Chúc mừng",themeBusiness:"Công việc / Cửa hàng / Thương hiệu",themeOther:"Khác",titleLabel:"Tên bài hát mong muốn",titleHint:"(để trống nếu muốn AI gợi ý)",titlePh:"Ví dụ: Trở lại biển Goseong",storyLabel:"Câu chuyện muốn đưa vào bài hát",storyPh:"Hãy kể khoảnh khắc đáng nhớ, bài hát dành cho ai và điều bạn muốn nói.",keywordsLabel:"Từ khóa muốn có",commaHint:"(ngăn cách bằng dấu phẩy)",keywordsPh:"Ví dụ: biển, mẹ, cảm ơn",lyricsRequestLabel:"Câu hát hoặc câu chữ nhất định muốn đưa vào",lyricsRequestPh:"Ví dụ: Mẹ ơi, con luôn biết ơn mẹ",step3Title:"3. Phong cách âm nhạc",genreLabel:"Thể loại",aiRecommend:"AI gợi ý",moodLabel:"Cảm xúc",moodHappy:"Vui vẻ",moodWarm:"Ấm áp",moodEmotional:"Cảm động",moodCalm:"Nhẹ nhàng",moodPassionate:"Nhiệt huyết",moodHopeful:"Hy vọng",moodSad:"Buồn",moodRefreshing:"Tươi mới",vocalLabel:"Giọng hát",male:"Nam",female:"Nữ",mixed:"Song ca",instrumental:"Không lời",bpmLabel:"BPM / Tốc độ",slow:"Chậm (75-90)",normal:"Vừa (91-110)",fast:"Nhanh (111-125)",instrumentLabel:"Nhạc cụ mong muốn",instrumentPh:"Ví dụ: piano, guitar acoustic",step4Title:"4. Sự kiện nổi tiếng AIMION",eventDesc:"Hãy quảng bá bài hát của bạn trên AIMION đến <strong>ngày 16 tháng 10</strong>. Các bài được yêu thích sẽ nhận quà đặc sản Goseong theo tiêu chí sự kiện.",eventOptIn:"Tôi muốn tham gia sự kiện AIMION.",aimionNickLabel:"Biệt danh hiển thị trên AIMION",step5Title:"5. Đồng ý & Gửi",privacyConsent:"[Bắt buộc] Tôi đồng ý cho thu thập và sử dụng thông tin cá nhân để đăng ký và sản xuất âm nhạc.",musicConsent:"[Tùy chọn] Tôi đồng ý cho phép sử dụng bài hát hoàn chỉnh để quảng bá/công khai trên các kênh chính thức của sự kiện, Goseong và AIMION.",consentNote:"Bạn vẫn có thể tham gia sản xuất nhạc nếu không đồng ý mục tùy chọn.",notesLabel:"Yêu cầu thêm",prev:"Quay lại",next:"Tiếp theo",submit:"Gửi yêu cầu tạo nhạc AI",submitting:"Đang gửi...",doneTitle:"🎉 Đăng ký đã hoàn tất.",receipt:"Mã tiếp nhận",doneMsg:"Ban tổ chức sẽ kiểm tra và tiến hành viết lời, tạo nhạc bằng AI.",keepReceipt:"Vui lòng lưu hoặc chụp màn hình mã tiếp nhận."},
+id:{festivalName:"Goseong AI Music Festival Pertama",heroTitle:"Dari era hanya mendengarkan lagu orang lain<br><em>menuju era membuat musik sendiri.</em>",heroDesc:"Ubah cerita, kenangan, cinta, keluarga, pekerjaan, toko, dan laut Goseong menjadi musik.",pillLyrics:"Lirik AI",pillMusic:"Musik AI",pillShare:"Bagikan",pillEvent:"Event AIMION",chooseLanguage:"Pilih bahasa",changeLanguage:"Ganti bahasa",step1Title:"1. Informasi Peserta",nameLabel:"Nama atau nama panggilan",namePh:"Contoh: SeaTraveler",emailLabel:"Email",countryLabel:"Negara / Wilayah",countryPh:"Contoh: Indonesia / Korea / Japan",regionLabel:"Kota / Domisili",regionPh:"Contoh: Jakarta / Bali / Seoul",phoneLabel:"Nomor ponsel",optional:"(opsional)",ageLabel:"Kelompok usia",select:"Pilih",ageUnder10:"Di bawah 10",age10s:"10-an",age20s:"20-an",age30s:"30-an",age40s:"40-an",age50s:"50-an",age60s:"60-an",age70plus:"70+",step2Title:"2. Cerita apa yang ingin dijadikan lagu?",themeSea:"Goseong & Laut",themeFamily:"Keluarga",themeLove:"Cinta",themeLonging:"Perpisahan & Rindu",themeFriends:"Teman",themeTravel:"Perjalanan & Kenangan",themeDream:"Mimpi & Harapan",themeThanks:"Terima kasih & Perayaan",themeBusiness:"Pekerjaan / Toko / Merek",themeOther:"Lainnya",titleLabel:"Judul lagu yang diinginkan",titleHint:"(kosongkan untuk saran AI)",titlePh:"Contoh: Kembali ke Laut Goseong",storyLabel:"Cerita yang ingin dimasukkan",storyPh:"Ceritakan momen berkesan, untuk siapa lagunya, dan apa yang ingin Anda sampaikan.",keywordsLabel:"Kata yang ingin dimasukkan",commaHint:"(pisahkan dengan koma)",keywordsPh:"Contoh: laut, ibu, terima kasih",lyricsRequestLabel:"Kalimat/lirik yang wajib dimasukkan",lyricsRequestPh:"Contoh: Ibu, terima kasih selalu",step3Title:"3. Gaya Musik",genreLabel:"Genre",aiRecommend:"Rekomendasi AI",moodLabel:"Suasana",moodHappy:"Bahagia",moodWarm:"Hangat",moodEmotional:"Mengharukan",moodCalm:"Tenang",moodPassionate:"Penuh semangat",moodHopeful:"Penuh harapan",moodSad:"Sedih",moodRefreshing:"Segar",vocalLabel:"Vokal",male:"Pria",female:"Wanita",mixed:"Campuran",instrumental:"Instrumental",bpmLabel:"BPM / Tempo",slow:"Lambat (75-90)",normal:"Sedang (91-110)",fast:"Cepat (111-125)",instrumentLabel:"Instrumen pilihan",instrumentPh:"Contoh: piano, gitar akustik",step4Title:"4. Event Popularitas AIMION",eventDesc:"Promosikan lagu Anda yang diunggah ke AIMION hingga <strong>16 Oktober</strong>. Entri populer akan menerima hadiah khas Goseong sesuai kriteria event.",eventOptIn:"Saya ingin mengikuti event popularitas AIMION.",aimionNickLabel:"Nama tampilan AIMION",step5Title:"5. Persetujuan & Kirim",privacyConsent:"[Wajib] Saya setuju dengan pengumpulan dan penggunaan data pribadi untuk pendaftaran dan produksi musik.",musicConsent:"[Opsional] Saya setuju musik yang selesai digunakan untuk promosi/publikasi di kanal resmi festival, Goseong, dan AIMION.",consentNote:"Anda tetap dapat mengikuti produksi musik tanpa menyetujui penggunaan opsional.",notesLabel:"Permintaan tambahan",prev:"Kembali",next:"Berikutnya",submit:"Kirim Permintaan Musik AI",submitting:"Mengirim...",doneTitle:"🎉 Pendaftaran selesai.",receipt:"Nomor Pendaftaran",doneMsg:"Tim akan meninjau pengajuan dan melanjutkan pembuatan lirik serta musik AI.",keepReceipt:"Simpan atau screenshot nomor pendaftaran Anda."}
+};
+
+const languageNames={ko:"한국어",en:"English",zh:"中文",ja:"日本語",vi:"Tiếng Việt",id:"Bahasa Indonesia"};
+const gate=document.getElementById("languageGate");
+const surveyWrap=document.getElementById("surveyWrap");
+const form=document.getElementById("surveyForm");
+const steps=[...document.querySelectorAll(".step")];
+const progressBar=document.getElementById("progressBar");
+const nextBtn=document.getElementById("nextBtn");
+const prevBtn=document.getElementById("prevBtn");
+const submitBtn=document.getElementById("submitBtn");
+const result=document.getElementById("result");
+let current=0;
+let currentLang="ko";
+
+function t(key){return (translations[currentLang]&&translations[currentLang][key])||translations.ko[key]||key;}
+function applyLanguage(lang){
+  currentLang=lang;
+  document.documentElement.lang=lang;
+  document.getElementById("languageInput").value=lang;
+  document.getElementById("currentLanguage").textContent=languageNames[lang]||lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{const key=el.dataset.i18n;if(t(key)!=null)el.textContent=t(key);});
+  document.querySelectorAll("[data-i18n-html]").forEach(el=>{const key=el.dataset.i18nHtml;if(t(key)!=null)el.innerHTML=t(key);});
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const key=el.dataset.i18nPlaceholder;if(t(key)!=null)el.placeholder=t(key);});
+}
+document.querySelectorAll(".lang-btn").forEach(btn=>btn.addEventListener("click",()=>{
+  applyLanguage(btn.dataset.lang); gate.hidden=true; surveyWrap.hidden=false; showStep(0);
+}));
+document.getElementById("changeLanguageBtn").addEventListener("click",()=>{surveyWrap.hidden=true;gate.hidden=false;window.scrollTo({top:0,behavior:"smooth"});});
 
 function showStep(index){
-  steps.forEach((step, i) => step.classList.toggle('active', i === index));
-  prevBtn.hidden = index === 0;
-  nextBtn.hidden = index === steps.length - 1;
-  submitBtn.hidden = index !== steps.length - 1;
-  progressBar.style.width = `${((index + 1) / steps.length) * 100}%`;
-  window.scrollTo({top:0, behavior:'smooth'});
+  steps.forEach((step,i)=>step.classList.toggle("active",i===index));
+  prevBtn.hidden=index===0;
+  nextBtn.hidden=index===steps.length-1;
+  submitBtn.hidden=index!==steps.length-1;
+  progressBar.style.width=`${((index+1)/steps.length)*100}%`;
+  window.scrollTo({top:0,behavior:"smooth"});
 }
-
 function validateCurrentStep(){
-  const inputs = [...steps[current].querySelectorAll('input, select, textarea')];
-  for(const el of inputs){
-    if(!el.checkValidity()){
-      el.reportValidity();
-      return false;
-    }
+  for(const el of steps[current].querySelectorAll("input,select,textarea")){
+    if(!el.checkValidity()){el.reportValidity();return false;}
   }
   return true;
 }
+nextBtn.addEventListener("click",()=>{if(validateCurrentStep()&&current<steps.length-1){current++;showStep(current);}});
+prevBtn.addEventListener("click",()=>{if(current>0){current--;showStep(current);}});
 
-nextBtn.addEventListener('click', () => {
-  if(validateCurrentStep() && current < steps.length - 1){
-    current += 1;
-    showStep(current);
-  }
-});
-
-prevBtn.addEventListener('click', () => {
-  if(current > 0){
-    current -= 1;
-    showStep(current);
-  }
-});
-
-form.addEventListener('submit', async (event) => {
+form.addEventListener("submit",async(event)=>{
   event.preventDefault();
-  if(!validateCurrentStep()) return;
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = '접수 중...';
-
-  const fd = new FormData(form);
-  const data = Object.fromEntries(fd.entries());
-
-  data.event_participation = fd.get('event_participation') === 'on';
-  data.privacy_consent = fd.get('privacy_consent') === 'on';
-  data.music_use_consent = fd.get('music_use_consent') === 'on';
-
+  if(!validateCurrentStep())return;
+  submitBtn.disabled=true; submitBtn.textContent=t("submitting");
+  const fd=new FormData(form);
+  const data=Object.fromEntries(fd.entries());
+  data.event_participation=fd.get("event_participation")==="on";
+  data.privacy_consent=fd.get("privacy_consent")==="on";
+  data.music_use_consent=fd.get("music_use_consent")==="on";
   try{
-    const response = await fetch('/api/submit', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(data)
-    });
-
-    const body = await response.json();
-    if(!response.ok) throw new Error(body.error || '접수에 실패했습니다.');
-
-    form.hidden = true;
-    result.hidden = false;
-    result.innerHTML = `
-      <h2>🎉 신청이 완료되었습니다.</h2>
-      <p>접수번호: <strong>${body.receipt_no}</strong></p>
-      <p>운영진이 접수 내용을 확인한 뒤 AI 가사·음악 제작을 진행합니다.</p>
-      <p>접수번호는 캡처해서 보관해 주세요.</p>
-    `;
+    const response=await fetch("/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+    const body=await response.json();
+    if(!response.ok)throw new Error(body.error||"Submission failed");
+    form.hidden=true; result.hidden=false;
+    result.innerHTML=`<h2>${t("doneTitle")}</h2><p>${t("receipt")}: <strong>${body.receipt_no}</strong></p><p>${t("doneMsg")}</p><p>${t("keepReceipt")}</p>`;
   }catch(error){
-    alert(error.message);
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'AI 음악 제작 신청하기';
+    alert(error.message); submitBtn.disabled=false; submitBtn.textContent=t("submit");
   }
 });
-
-showStep(current);
+applyLanguage("ko");
