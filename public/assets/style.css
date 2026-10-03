@@ -175,3 +175,8 @@ textarea{resize:vertical}
   .actions{justify-content:stretch}
   .actions .btn{flex:1}
 }
+
+.language-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:16px}
+.lang-btn{border:1px solid #d8e7f7;background:#fff;color:#14385f;border-radius:14px;padding:15px 12px;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 6px 18px rgba(13,55,110,.06)}
+.lang-btn:hover{border-color:#67aef1;background:#f6fbff;transform:translateY(-1px)}
+@media(max-width:620px){.language-grid{grid-template-columns:1fr 1fr}.lang-btn{font-size:15px;padding:13px 8px}}
