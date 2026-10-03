@@ -8,8 +8,10 @@ id:{festivalName:"Goseong AI Music Festival Pertama",heroTitle:"Dari era hanya m
 };
 
 const languageNames={ko:"한국어",en:"English",zh:"中文",ja:"日本語",vi:"Tiếng Việt",id:"Bahasa Indonesia"};
-const gate=document.getElementById("languageGate");
 const surveyWrap=document.getElementById("surveyWrap");
+const languageMenuBtn=document.getElementById("languageMenuBtn");
+const languageMenu=document.getElementById("languageMenu");
+const languageMenuLabel=document.getElementById("languageMenuLabel");
 const form=document.getElementById("surveyForm");
 const steps=[...document.querySelectorAll(".step")];
 const progressBar=document.getElementById("progressBar");
@@ -30,10 +32,16 @@ function applyLanguage(lang){
   document.querySelectorAll("[data-i18n-html]").forEach(el=>{const key=el.dataset.i18nHtml;if(t(key)!=null)el.innerHTML=t(key);});
   document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const key=el.dataset.i18nPlaceholder;if(t(key)!=null)el.placeholder=t(key);});
 }
-document.querySelectorAll(".lang-btn").forEach(btn=>btn.addEventListener("click",()=>{
-  applyLanguage(btn.dataset.lang); gate.hidden=true; surveyWrap.hidden=false; showStep(0);
-}));
-document.getElementById("changeLanguageBtn").addEventListener("click",()=>{surveyWrap.hidden=true;gate.hidden=false;window.scrollTo({top:0,behavior:"smooth"});});
+function chooseLanguage(lang){
+  applyLanguage(lang);
+  languageMenuLabel.textContent=languageNames[lang]||lang;
+  languageMenu.hidden=true;
+}
+languageMenuBtn.addEventListener("click",()=>{languageMenu.hidden=!languageMenu.hidden;});
+languageMenu.querySelectorAll("button[data-lang]").forEach(btn=>btn.addEventListener("click",()=>chooseLanguage(btn.dataset.lang)));
+document.addEventListener("click",(e)=>{
+  if(!languageMenu.contains(e.target) && !languageMenuBtn.contains(e.target)) languageMenu.hidden=true;
+});
 
 function showStep(index){
   steps.forEach((step,i)=>step.classList.toggle("active",i===index));
@@ -71,4 +79,4 @@ form.addEventListener("submit",async(event)=>{
     alert(error.message); submitBtn.disabled=false; submitBtn.textContent=t("submit");
   }
 });
-applyLanguage("ko");
+applyLanguage("ko"); languageMenuLabel.textContent=languageNames.ko; showStep(0);
