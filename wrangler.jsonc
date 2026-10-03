@@ -3,8 +3,11 @@
   "main": "src/index.js",
   "compatibility_date": "2026-09-29",
   "assets": {
-    "directory": "./public", 
+    "directory": "./public",
     "binding": "ASSETS"
+  },
+  "ai": {
+    "binding": "AI"
   },
   "d1_databases": [
     {
