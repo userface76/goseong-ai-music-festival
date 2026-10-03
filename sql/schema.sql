@@ -2,8 +2,8 @@ CREATE TABLE IF NOT EXISTS submissions (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   receipt_no TEXT NOT NULL UNIQUE,
   name TEXT NOT NULL,
-  phone TEXT NOT NULL,
-  email TEXT,
+  phone TEXT,
+  email TEXT NOT NULL,
   age_group TEXT,
   region TEXT,
   theme TEXT NOT NULL,
@@ -21,15 +21,20 @@ CREATE TABLE IF NOT EXISTS submissions (
   music_use_consent INTEGER NOT NULL DEFAULT 0,
   notes TEXT,
   status TEXT NOT NULL DEFAULT '접수',
+  language TEXT DEFAULT 'ko',
+  country TEXT,
+  story_original TEXT,
+  story_ko TEXT,
+  desired_title_original TEXT,
+  desired_title_ko TEXT,
+  keywords_original TEXT,
+  keywords_ko TEXT,
+  lyrics_request_original TEXT,
+  lyrics_request_ko TEXT,
+  translation_status TEXT DEFAULT 'pending',
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-CREATE INDEX IF NOT EXISTS idx_submissions_receipt_no
-ON submissions(receipt_no);
-
-CREATE INDEX IF NOT EXISTS idx_submissions_status
-ON submissions(status);
-
-CREATE INDEX IF NOT EXISTS idx_submissions_created_at
-ON submissions(created_at);
+CREATE INDEX IF NOT EXISTS idx_submissions_receipt_no ON submissions(receipt_no);
+CREATE INDEX IF NOT EXISTS idx_submissions_status ON submissions(status);
+CREATE INDEX IF NOT EXISTS idx_submissions_created_at ON submissions(created_at);
