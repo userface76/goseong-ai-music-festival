@@ -25,7 +25,7 @@ function render(){
     <tr>
       <td><b>${esc(row.receipt_no)}</b><br><small>${langNames[row.language]||esc(row.language||'KO')} · ${esc(row.country||'')}</small></td>
       <td>${esc(row.name)}<br><small>${esc(row.region||'')} / ${esc(row.age_group||'')}</small></td>
-      <td>${esc(maskPhone(row.phone))}<br><small>${esc(maskEmail(row.email))}</small></td>
+      <td>${esc(row.phone || '')}<br><small>${esc(maskEmail(row.email))}</small></td>
       <td>
         <b>${esc(row.desired_title_original||'(AI 제목 추천)')}</b>
         ${row.desired_title_ko&&row.desired_title_ko!==row.desired_title_original?`<br><small>🇰🇷 ${esc(row.desired_title_ko)}</small>`:''}
