@@ -82,11 +82,67 @@ async function updateStatus(request,env){
 }
 async function exportCsv(env){
   await ensureSchema(env);
-  const {results}=await env.DB.prepare("SELECT * FROM submissions ORDER BY id DESC").all();
-  if(!results.length)return new Response("\uFEFF",{headers:{"Content-Type":"text/csv; charset=utf-8"}});
-  const headers=Object.keys(results[0]); const lines=[headers.join(",")];
-  for(const row of results)lines.push(headers.map(h=>csvCell(row[h])).join(","));
-  return new Response("\uFEFF"+lines.join("\n"),{headers:{"Content-Type":"text/csv; charset=utf-8","Content-Disposition":'attachment; filename="goseong-ai-music-submissions.csv"',"Cache-Control":"no-store"}});
+  const {results}=await env.DB.prepare(`
+    SELECT
+      receipt_no,name,phone,email,country,region,language,age_group,
+      desired_title_original,desired_title_ko,
+      theme,story_original,story_ko,
+      keywords_original,keywords_ko,
+      lyrics_request_original,lyrics_request_ko,
+      genre,mood,vocal_type,bpm,instruments,
+      event_participation,aimion_nickname,
+      privacy_consent,music_use_consent,
+      notes,status,translation_status,created_at,updated_at
+    FROM submissions
+    ORDER BY id DESC
+  `).all();
+
+  const columns=[
+    ["receipt_no","접수번호"],
+    ["name","이름"],
+    ["phone","전화번호"],
+    ["email","이메일"],
+    ["country","국가"],
+    ["region","지역"],
+    ["language","선택언어"],
+    ["age_group","연령대"],
+    ["desired_title_original","노래제목_원문"],
+    ["desired_title_ko","노래제목_한국어"],
+    ["theme","주제"],
+    ["story_original","사연_원문"],
+    ["story_ko","사연_한국어"],
+    ["keywords_original","키워드_원문"],
+    ["keywords_ko","키워드_한국어"],
+    ["lyrics_request_original","꼭넣을가사_원문"],
+    ["lyrics_request_ko","꼭넣을가사_한국어"],
+    ["genre","장르"],
+    ["mood","분위기"],
+    ["vocal_type","보컬"],
+    ["bpm","BPM"],
+    ["instruments","악기"],
+    ["event_participation","이벤트참여"],
+    ["aimion_nickname","에이미온닉네임"],
+    ["privacy_consent","개인정보동의"],
+    ["music_use_consent","음원활용동의"],
+    ["notes","추가요청"],
+    ["status","진행상태"],
+    ["translation_status","번역상태"],
+    ["created_at","접수일"],
+    ["updated_at","수정일"]
+  ];
+
+  const lines=[columns.map(([,label])=>csvCell(label)).join(",")];
+  for(const row of results){
+    lines.push(columns.map(([key])=>csvCell(row[key])).join(","));
+  }
+
+  return new Response("\uFEFF"+lines.join("\n"),{
+    headers:{
+      "Content-Type":"text/csv; charset=utf-8",
+      "Content-Disposition":'attachment; filename="goseong-ai-music-submissions-full.csv"',
+      "Cache-Control":"no-store"
+    }
+  });
 }
 export default{async fetch(request,env){
   const url=new URL(request.url),path=url.pathname;
