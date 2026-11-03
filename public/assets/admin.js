@@ -25,7 +25,7 @@ function render(){
     <tr>
       <td><b>${esc(row.receipt_no)}</b><br><small>${langNames[row.language]||esc(row.language||'KO')} · ${esc(row.country||'')}</small></td>
       <td>${esc(row.name)}<br><small>${esc(row.region||'')} / ${esc(row.age_group||'')}</small></td>
-      <td>${esc(row.phone || '')}<br><small>${esc(maskEmail(row.email))}</small></td>
+      <td>${esc(maskPhone(row.phone))}<br><small>${esc(maskEmail(row.email))}</small><br><button class="btn secondary detail-btn" type="button" onclick="openDetail('${esc(row.receipt_no)}')">상세보기</button></td>
       <td>
         <b>${esc(row.desired_title_original||'(AI 제목 추천)')}</b>
         ${row.desired_title_ko&&row.desired_title_ko!==row.desired_title_original?`<br><small>🇰🇷 ${esc(row.desired_title_ko)}</small>`:''}
@@ -49,3 +49,24 @@ search.addEventListener('input',render);statusFilter.addEventListener('change',r
 document.getElementById('refresh').addEventListener('click',load);
 document.getElementById('download').addEventListener('click',()=>{location.href='/api/admin/export';});
 load();
+function openDetail(receiptNo){
+  const row=rows.find(r=>r.receipt_no===receiptNo);
+  if(!row)return;
+  const modal=document.getElementById('detailModal');
+  const body=document.getElementById('detailBody');
+  body.innerHTML=
+    '<p><b>접수번호</b><br>'+esc(row.receipt_no||'')+'</p>'+
+    '<p><b>이름</b><br>'+esc(row.name||'')+'</p>'+
+    '<p><b>전화번호</b><br>'+esc(row.phone||'')+'</p>'+
+    '<p><b>이메일</b><br>'+esc(row.email||'')+'</p>'+
+    '<p><b>국가 / 지역</b><br>'+esc((row.country||'')+' '+(row.region||''))+'</p>'+
+    '<p><b>원하는 노래 제목</b><br>'+esc(row.desired_title_original||'(AI 제목 추천)')+'</p>'+
+    '<p><b>노래 이야기 원문</b><br>'+esc(row.story_original||row.story||'')+'</p>'+
+    (row.story_ko?'<p><b>한국어 번역</b><br>'+esc(row.story_ko)+'</p>':'')+
+    (row.lyrics_request_original?'<p><b>꼭 넣고 싶은 가사·문장</b><br>'+esc(row.lyrics_request_original)+'</p>':'');
+  modal.hidden=false;
+}
+function closeDetail(){document.getElementById('detailModal').hidden=true;}
+document.getElementById('detailClose').addEventListener('click',closeDetail);
+document.getElementById('detailModal').addEventListener('click',(e)=>{if(e.target.id==='detailModal')closeDetail();});
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeDetail();});
